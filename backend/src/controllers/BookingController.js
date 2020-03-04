@@ -1,6 +1,10 @@
 const Booking = require('../models/Booking');
 
 module.exports = {
+  async index(req, res) {
+    const bookings = await Booking.find();
+    return res.json(bookings)
+  },
   async store(req, res) {
     const { user_id } = req.headers;
     const { spot_id } = req.params;
@@ -13,7 +17,12 @@ module.exports = {
     });
 
     await booking.populate('spot').populate('user').execPopulate();
-
     return res.json(booking);
+  },
+  async destroy(req, res) {
+    const { booking_id } = req.params;
+    const booking = await Booking.findById(booking_id);
+    await booking.remove();
+
   }
 };

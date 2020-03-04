@@ -28,7 +28,13 @@ module.exports = {
       techs: techs.split(',').map(tech => tech.trim()),
       price
     })
-
     return res.json(spot);
-  }
+  },
+
+  async destroy(req, res) {
+    const { spot_id } = req.params;
+    const spot = await Spot.findById(spot_id);
+    await spot.remove();
+    return res.json({message: "The spot has been deleted"});
+  },
 }
