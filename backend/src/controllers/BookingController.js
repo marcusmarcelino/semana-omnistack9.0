@@ -17,12 +17,18 @@ module.exports = {
     });
 
     await booking.populate('spot').populate('user').execPopulate();
+
+    const ownerSocket = req.connectedUsers[booking.spot.user];
+
+    if(ownerSocket){
+      req.io.to(ownerSocket).emit('booking_request', booking);
+    }
+
     return res.json(booking);
   },
   async destroy(req, res) {
     const { booking_id } = req.params;
     const booking = await Booking.findById(booking_id);
     await booking.remove();
-
   }
 };
