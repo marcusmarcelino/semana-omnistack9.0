@@ -1,13 +1,16 @@
 # dependencies
 node_modules
-uploads
-uploads/.png
-uploads/.jpg
-uploads/.svg
-.pnp
+
+.env
+
+tmp/uploads/*
+!tmp/uploads/.gitKeep
+
+/.pnp
 .pnp.js
-.jpg
+
 mobile.rar
+
 .rar
 # testing
 coverage
